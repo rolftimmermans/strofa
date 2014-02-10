@@ -1,0 +1,25 @@
+{
+  "author": "Rolf W. Timmermans <rolftimmermans@voormedia.com>",
+  "name": "verz",
+  "version": "0.2.0",
+  "description": "Domain-specific compression algorithms using Markov-Huffman Compression",
+  "url": "https://github.com/rolftimmermans/verz",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rolftimmermans/verz.git"
+  },
+
+  "main": "verz.js",
+
+  "scripts": {
+    "test": "make test",
+    "dist": "make dist"
+  },
+
+  "devDependencies": {
+    "chai": "1.x",
+    "mocha": "1.x",
+    "closurecompiler": "1.x"
+  }
+}
