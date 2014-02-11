@@ -74,20 +74,20 @@ were part of the [leaked Adobe accounts][4] database. Needless to say the email
 addresses are not included in this repository, nor are they recoverable from
 the compression model.
 
-Benefits:
-- Commonly used email domains are compressed very efficiently. For example:
-  `gmail.com` is compressed to only 12 bits.
-- Many predictable patterns in the username part of an address occur. They
-  can be compressed by about half.
+#### Benefits:
+- Commonly used domains are compressed very efficiently: `gmail.com` uses just
+  12 bits.
+- Predictable patterns in the username part of an address occur. They can be
+  compressed by about half.
 
-Caveats:
+#### Caveats:
 - There may be a strong bias towards Western email addresses.
-- Email addresses should lower case. Upper case characters are unexpected and a
-  single one takes about 3-4 bytes to encode (although any that follow will use
-  exactly 1 byte).
+- Email addresses should be lower case. Upper case characters are unexpected
+  and a single one takes about 3-4 bytes to encode (although any that follow
+  will use exactly 1 byte).
 - No UTF-8 email addresses are included.
-- The username and the domain parts follow slightly different patterns but the
-  compressor makes no such distinction.
+- The username and the domain parts follow different patterns but the
+  compressor makes no distinction.
 
 [4]: http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/
 
