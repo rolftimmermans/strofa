@@ -98,24 +98,19 @@ API
 When used with Node.js, require the `verz` module first:
 
 ``` javascript
-var verz = require("verz")
+var verz = require("verz");
 ```
 
 ### Built-in compression
 
-``` javascript
-verz.email;
-```
+#### `verz.email`
 
 Loads and returns the built-in compressor for [email
 addresses](#email-addresses). Loading is synchronous, you should call this
 during your app's initialization. Returns the same compressor when accessed
 multiple times.
 
-
-``` javascript
-verz.english;
-```
+#### `verz.english`
 
 Loads and returns the built-in compressor for [English text](#english-text).
 Loading is synchronous, you should call this during your app's initialization.
@@ -123,41 +118,28 @@ Returns the same compressor when accessed multiple times.
 
 ### Model
 
-``` javascript
-new verz.Model
-```
+#### `new verz.Model`
 
 Creates and returns a new compression model.
 
-
-``` javascript
-model.push(string)
-```
+#### `model.push(string)`
 
 Improves the model with the given sample message `string`. You should add as
 many samples as possible.
 
 
-``` javascript
-model.createCoder()
-```
+#### `model.createCoder()`
 
 Creates and returns a new `Coder` based on the model. The coder can be used to
 compress and decompress messages.
 
-
-``` javascript
-model.toBuffer()
-```
+#### `model.toBuffer()`
 
 Serializes the model into a binary format that can be used at a later stage to
 instantiate a `Coder`. Returns a `Buffer`. The browser version returns a
 `Uint8Array` with a few additional functions mimicking a `Buffer`.
 
-
-``` javascript
-model.toJSON()
-```
+#### `model.toJSON()`
 
 Serializes the model into a JSON format that can be used at a later stage to
 instantiate a `Coder`. When serialized to a string the JSON format is
@@ -166,24 +148,16 @@ significantly larger than the binary format, so you should almost always use
 
 ### Coder
 
-``` javascript
-verz.Coder.fromBuffer(buffer)
-```
+#### `verz.Coder.fromBuffer(buffer)`
 
 Creates and returns a new `Coder` base on the serialized model stored in the
 given `buffer`.
 
-
-``` javascript
-verz.Coder.fromJSON(json)
-```
+#### `verz.Coder.fromJSON(json)`
 
 Creates and returns a new `Coder` base on the serialized model stored as JSON.
 
-
-``` javascript
-coder.encode(string)
-```
+#### `coder.encode(string)`
 
 Compresses the given string. The string is stored internally as UTF-8.
 Compression happens per byte. Non-ASCII characters are encoded but generally
@@ -191,29 +165,20 @@ don't compress very well, because most context information is unavailable.
 Returns a `Buffer`. The browser version returns a `Uint8Array` with a few
 additional functions mimicking a `Buffer`. Use `decode()` to decompress.
 
-
-``` javascript
-coder.encodeBase64(string)
-```
+#### `coder.encodeBase64(string)`
 
 Same as `encode()`, but returns the compressed representation as an [URL-safe
 base64][3] encoded string. Use `decodeBase64()` to decompress.
 
 [3]: http://tools.ietf.org/html/rfc4648#section-5
 
-
-``` javascript
-coder.decode(buffer)
-```
+#### `coder.decode(buffer)`
 
 Decompresses the given buffer returned by `encode()`. Returns the original
 string when used with the same coder object or with a coder object created from
 the exact same model serialization.
 
-
-``` javascript
-coder.decodeBase64(string)
-```
+#### `coder.decodeBase64(string)`
 
 Decompresses the given URL-safe base64 encoded string returned by
 `encodeBase64()`. Returns the original string when used with the same coder
