@@ -69,6 +69,28 @@ verz.email.encodeBase64("r.w.timmermans@gmail.com");
 //=> 'Xjrw2ejl2tVAx8'
 ```
 
+The email address compression model is based on 150 million email addresses that
+were part of the [leaked Adobe accounts][4] database. Needless to say the email
+addresses are not included in this repository, nor are they recoverable from
+the compression model.
+
+Benefits:
+- Commonly used email domains are compressed very efficiently. For example:
+  `gmail.com` is compressed to only 12 bits.
+- Many predictable patterns in the username part of an address occur. They
+  can be compressed by about half.
+
+Caveats:
+- There may be a strong bias towards Western email addresses.
+- Email addresses should lower case. Upper case characters are unexpected and a
+  single one takes about 3-4 bytes to encode (although any that follow will use
+  exactly 1 byte).
+- No UTF-8 email addresses are included.
+- The username and the domain parts follow slightly different patterns but the
+  compressor makes no such distinction.
+
+[4]: http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/
+
 ### Host names
 
 
@@ -158,13 +180,13 @@ significantly larger than the binary format, so you should almost always use
 #### `verz.Coder.fromBuffer(buffer)`
 
 Creates and returns a new `Coder` base on the serialized model stored in the
-given `buffer`. Note: this requires a [compatible](#compatibility)
-serialization format.
+given `buffer`. This requires serialization format
+[compatibility](#compatibility).
 
 #### `verz.Coder.fromJSON(json)`
 
 Creates and returns a new `Coder` base on the serialized model stored as JSON.
-Note: this requires a [compatible](#compatibility) serialization format.
+This requires serialization format [compatibility](#compatibility).
 
 #### `coder.encode(string)`
 
@@ -185,21 +207,26 @@ base64][3] encoded string. Use `decodeBase64()` to decompress.
 
 Decompresses the given buffer returned by `encode()`. Returns the original
 string when used with the same coder object or with a coder object created from
-the exact same model serialization. Note: this requires a
-[compatible](#compatibility) compression format.
+the exact same model serialization. This requires compression format
+[compatibility](#compatibility).
+
+No validation is performed. That means that a single incorrect bit may
+completely alter the message beyond recognition. You should add validation
+checks yourself if required. Checksums are best appended to the end of the
+message.
 
 #### `coder.decodeBase64(string)`
 
 Decompresses the given URL-safe base64 encoded string returned by
 `encodeBase64()`. Returns the original string when used with the same coder
 object or with a coder object created from the exact same model serialization.
-Note: this requires a [compatible](#compatibility) compression format.
+This requires compression format [compatibility](#compatibility).
 
 
 Compatibility
 -------------
 
-Releases of **verz** follow [semantic versioning][4]. Compression output and
+Releases of **verz** follow [semantic versioning][5]. Compression output and
 compression model compatibility is treated as an API compatibility. That means:
 
 - **Before 1.0** the compression output, the model serialization format and the
@@ -213,7 +240,7 @@ compression model compatibility is treated as an API compatibility. That means:
   only. You should be explicit when adding a dependency in your `package.json`
   file, for example: `"verz": "1.x"`.
 
-[4]: http://semver.org/
+[5]: http://semver.org/
 
 
 License
@@ -223,6 +250,6 @@ Copyright 2013-2014 Rolf W. Timmermans.
 
 The **verz** compression library and algorithm are licensed under the Apache
 License, Version 2.0; you may not use this project except in compliance with the
-License. See the file [LICENSE][5] for details.
+License. See the file [LICENSE][6] for details.
 
-[5]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
+[6]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
