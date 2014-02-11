@@ -2,7 +2,7 @@
   "author": "Rolf W. Timmermans <rolftimmermans@voormedia.com>",
   "name": "verz",
   "version": "0.2.0",
-  "description": "Domain-specific compression algorithms using Markov-Huffman Compression",
+  "description": "Compression for short messages using Markov-Huffman encoding",
   "url": "https://github.com/rolftimmermans/verz",
   "license": "Apache-2.0",
   "repository": {

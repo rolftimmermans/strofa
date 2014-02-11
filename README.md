@@ -15,7 +15,8 @@ representation of roughly 10-30K, with an absolute upper limit of 82K.
 Compression models are built-in for:
 - English text
 - email addresses
-- domain names
+- host names
+- URLs
 
 
 Installation
@@ -67,6 +68,13 @@ verz.email.encode("r.w.timmermans@gmail.com");
 verz.email.encodeBase64("r.w.timmermans@gmail.com");
 //=> 'Xjrw2ejl2tVAx8'
 ```
+
+### Host names
+
+
+### URLs
+
+
 
 ### Customized compression models
 
