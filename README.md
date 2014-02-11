@@ -1,13 +1,13 @@
 verz – Compress short messages
 ==============================
 
-**verz** compresses very short messages. It encodes data by using statistical
-models to predict each byte based on the previous byte. The same model is
-used during decompression.
+Use **verz** to compress very short messages. It encodes data by using a
+statistical model to predict each byte based on the previous byte. The same
+model is used during decompression.
 
 Compression is based on Markov-Huffman coding. High probability byte sequences
 can be compressed into very few bits. Models work best if they match the type
-of message to be compressed. In that sense, a **verz** model is domain specific.
+of message to be compressed. Therefore a **verz** model is domain-specific.
 
 With **verz** it is trivial to construct compression models based on a set of
 sample data that you provide. A compression model can be serialized to a binary
@@ -28,7 +28,7 @@ NodeJS:
 npm install verz
 ```
 
-For browsers, a [minified version][1] is available. It requires Javascript
+For browsers a [minified version][1] is available. It requires Javascript
 `Uint8Array` typed array support, which qualifies Chrome 7+, Firefox 4+,
 Internet Explorer 10+, Opera 11.6+ and Safari 5.1+.
 
@@ -45,7 +45,7 @@ Usage
 ### English text
 
 ``` javascript
-/* Compress as Buffer/UInt8Array. */
+/* Compress as Buffer/Uint8Array. */
 verz.english.encode("All which is not prose is verse...")
 // <Buffer 41 ec 2f 68 5f fa af 6f a5 18 d3 7d 44 78 cf 98 c4>
 
@@ -59,7 +59,7 @@ The English compression model is created from a number of English books.
 ### Email addresses
 
 ``` javascript
-/* Compress as Buffer/UInt8Array. */
+/* Compress as Buffer/Uint8Array. */
 verz.email.encode("r.w.timmermans@gmail.com")
 //=> <Buffer 5e 3a f0 d9 e8 e5 da d5 40 c7 c0>
 
