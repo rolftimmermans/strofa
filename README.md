@@ -135,7 +135,6 @@ Creates and returns a new compression model.
 Improves the model with the given sample message `string`. You should add as
 many samples as possible.
 
-
 #### `model.createCoder()`
 
 Creates and returns a new `Coder` based on the model. The coder can be used to
@@ -159,11 +158,13 @@ significantly larger than the binary format, so you should almost always use
 #### `verz.Coder.fromBuffer(buffer)`
 
 Creates and returns a new `Coder` base on the serialized model stored in the
-given `buffer`.
+given `buffer`. Note: this requires a [compatible](#compatibility)
+serialization format.
 
 #### `verz.Coder.fromJSON(json)`
 
 Creates and returns a new `Coder` base on the serialized model stored as JSON.
+Note: this requires a [compatible](#compatibility) serialization format.
 
 #### `coder.encode(string)`
 
@@ -184,13 +185,35 @@ base64][3] encoded string. Use `decodeBase64()` to decompress.
 
 Decompresses the given buffer returned by `encode()`. Returns the original
 string when used with the same coder object or with a coder object created from
-the exact same model serialization.
+the exact same model serialization. Note: this requires a
+[compatible](#compatibility) compression format.
 
 #### `coder.decodeBase64(string)`
 
 Decompresses the given URL-safe base64 encoded string returned by
 `encodeBase64()`. Returns the original string when used with the same coder
 object or with a coder object created from the exact same model serialization.
+Note: this requires a [compatible](#compatibility) compression format.
+
+
+Compatibility
+-------------
+
+Releases of **verz** follow [semantic versioning][4]. Compression output and
+compression model compatibility is treated as an API compatibility. That means:
+
+- **Before 1.0** the compression output, serialization format and the API **may
+  not be compatible** between minor versions. You should be explicit when
+  adding a dependency in your `package.json` file, for example: `"verz":
+  "0.2.x"`
+- **Starting at 1.0** the compression output, serialization format and the API
+  will be **compatible** between **minor** versions and **patch** versions.
+- **Starting at 1.0** breaking changes in compression output, serialization
+  format and the API will be limited to **major** versions only. You should be
+  explcity when adding a dependency in your `package.json` file, for example:
+  `"verz": "1.x"`
+
+[4]: http://semver.org/
 
 
 License
@@ -200,6 +223,6 @@ Copyright 2013-2014 Rolf W. Timmermans.
 
 The **verz** compression library and algorithm are licensed under the Apache
 License, Version 2.0; you may not use this project except in compliance with the
-License. See the file [LICENSE][4] for details.
+License. See the file [LICENSE][5] for details.
 
-[4]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
+[5]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
