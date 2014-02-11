@@ -91,3 +91,13 @@ coder.encodeBase64("Hello")
 // '7w'
 ```
 
+License
+-------
+
+Copyright 2013-2014 Rolf W. Timmermans.
+
+The **verz** compression library and algorithm are licensed under the Apache
+License, Version 2.0; you may not use this project except in compliance with the
+License. See the file [LICENSE][3] for details.
+
+[3]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
