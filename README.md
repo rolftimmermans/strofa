@@ -202,16 +202,16 @@ Compatibility
 Releases of **verz** follow [semantic versioning][4]. Compression output and
 compression model compatibility is treated as an API compatibility. That means:
 
-- **Before 1.0** the compression output, serialization format and the API **may
-  not be compatible** between minor versions. You should be explicit when
-  adding a dependency in your `package.json` file, for example: `"verz":
-  "0.2.x"`
-- **Starting at 1.0** the compression output, serialization format and the API
-  will be **compatible** between **minor** versions and **patch** versions.
-- **Starting at 1.0** breaking changes in compression output, serialization
-  format and the API will be limited to **major** versions only. You should be
-  explcity when adding a dependency in your `package.json` file, for example:
-  `"verz": "1.x"`
+- **Before 1.0** the compression output, the model serialization format and the
+  API **may not be compatible** between minor versions. You should be explicit
+  when adding a dependency in your `package.json` file, for example: `"verz":
+  "0.2.x"`.
+- **Starting at 1.0** the compression output, the model serialization format
+  and the API will be **compatible** between **minor** versions and **patch**
+  versions.
+- **Starting at 1.0** breaking changes will be limited to **major** versions
+  only. You should be explicit when adding a dependency in your `package.json`
+  file, for example: `"verz": "1.x"`.
 
 [4]: http://semver.org/
 
