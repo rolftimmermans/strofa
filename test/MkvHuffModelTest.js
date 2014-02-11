@@ -24,7 +24,7 @@ describe("MkvHuffModel", function() {
 
   describe("createCoder", function() {
     it("should return coder", function() {
-      assert.instanceOf(model.getCoder(), MkvHuffCoder)
+      assert.instanceOf(model.createCoder(), MkvHuffCoder)
     })
   })
 
@@ -36,6 +36,19 @@ describe("MkvHuffModel", function() {
       assert.deepEqual(json[98].shift(), 97)
       assert.deepEqual(json[98].pop().pop(), 99)
       assert.deepEqual(json[99].pop(), 97)
+    })
+
+    it("should drop tree for relatively uncommon character", function() {
+      var data = ""
+      for (var i = 0; i < 20; i++) {
+        data += "abcdefghijklmnopqrstuvwabcdefghijklmnopqrstu"
+      }
+      for (var i = 0; i < 100; i++) model.push(data)
+
+      model.push("xa")
+
+      var json = model.toJSON()
+      assert.equal(json[120], null)
     })
   })
 

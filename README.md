@@ -11,7 +11,7 @@ of message to be compressed. In that sense, a **verz** model is domain specific.
 
 **Verz** makes it trivial to construct compression models based on a set of
 sample data that you provide. A compression model can be serialized to a binary
-representation of roughly 10-40K, with an absolute upper limit of 82K.
+representation of roughly 10-30K, with an absolute upper limit of 82K.
 Compression models are built-in for:
 - English text
 - email addresses
@@ -44,7 +44,8 @@ Usage
 ### Compressing English text
 
 ``` javascript
-var src = "There is no such thing as a long piece of work, except one that you dare not start."
+var src = "There is no such thing as a long piece of work," +
+  " except one that you dare not start."
 
 verz.english.encode(src)
 // <Buffer 58 6c df 55 ec 71 5a bf 3b d8 ...>
@@ -73,7 +74,7 @@ verz.email.encodeBase64(src)
 var model = new verz.Model
 model.push("Hello world!")
 
-var coder = model.getCoder()
+var coder = model.createCoder()
 
 coder.encode("Hello")
 // <Buffer ef>

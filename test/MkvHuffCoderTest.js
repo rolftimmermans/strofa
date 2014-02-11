@@ -8,6 +8,7 @@ var crypto = require("crypto")
 
 var MkvHuffModel = require("../lib/MkvHuffModel")
 var MkvHuffCoder = require("../lib/MkvHuffCoder")
+var HuffTree = require("../lib/HuffTree")
 
 describe("MkvHuffCoder", function() {
   var coder
@@ -16,7 +17,7 @@ describe("MkvHuffCoder", function() {
     var model = new MkvHuffModel
     model.push("abcdefg")
 
-    coder = model.getCoder()
+    coder = model.createCoder()
   })
 
   describe("encoding", function() {
@@ -25,8 +26,22 @@ describe("MkvHuffCoder", function() {
     })
 
     it("should encode verbatim with untrained model", function() {
-      var coder = new MkvHuffModel().getCoder()
+      var coder = new MkvHuffModel().createCoder()
       assert.equal(coder.encode("xyz123").slice(0, 6), "xyz123")
+    })
+
+    it("should encode to original length with evenly distributed model", function() {
+      var freqs = new Array(256)
+      for (var i = 0; i < 256; i++) freqs[i] = 1
+      var tree = HuffTree(freqs)
+
+      /* Reuse artificially constructed balanced Huffman tree. */
+      var trees = new Array(256)
+      for (var i = 0; i < 256; i++) trees[i] = tree
+
+      var coder = new MkvHuffCoder(trees)
+      /* Adjusted for trailing EOF marker. */
+      assert.equal(coder.encode("abcdefghijklm").length - 1, "abcdefghijklm".length)
     })
 
     it("should round trip", function() {
@@ -48,7 +63,7 @@ describe("MkvHuffCoder", function() {
     })
 
     it("should decode random data", function() {
-      assert.closeTo(coder.decode(crypto.randomBytes(21)).length, 21, 3)
+      assert.closeTo(coder.decode(crypto.randomBytes(21)).length, 22, 5)
     })
   })
 
