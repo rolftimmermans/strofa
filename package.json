@@ -1,16 +1,16 @@
 {
   "author": "Rolf W. Timmermans <rolftimmermans@voormedia.com>",
-  "name": "verz",
-  "version": "0.2.0",
+  "name": "strofa",
+  "version": "0.3.0",
   "description": "Compression for short messages using Markov-Huffman encoding",
-  "url": "https://github.com/rolftimmermans/verz",
+  "url": "https://github.com/rolftimmermans/strofa",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rolftimmermans/verz.git"
+    "url": "https://github.com/rolftimmermans/strofa.git"
   },
 
-  "main": "verz.js",
+  "main": "strofa.js",
 
   "scripts": {
     "test": "make test",

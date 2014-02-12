@@ -5,7 +5,7 @@
 
 var fs = require("fs")
 var readline = require("readline")
-var Model = require("../verz").Model
+var Model = require("../strofa").Model
 
 Model.fromFiles = function(files, callback) {
   var model = new Model

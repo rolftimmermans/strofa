@@ -1,7 +1,7 @@
-verz – Compress short messages
-==============================
+strofa – Compress short messages
+================================
 
-Use **verz** to compress very short messages. It encodes data by using a
+Use **strofa** to compress very short messages. It encodes data by using a
 statistical model to predict each byte based on the previous byte. The same
 model is used during decompression.
 
@@ -9,7 +9,7 @@ Compression is based on Markov-Huffman coding. High probability byte sequences
 can be compressed into very few bits. Models work best if they match the type
 of message to be compressed. A compression model is domain-specific.
 
-With **verz** it is trivial to construct compression models based on a set of
+With **strofa** it is trivial to construct compression models based on a set of
 sample data that you provide. A compression model can be serialized to a binary
 representation of roughly 10-30K, with an absolute upper limit of 82K.
 Compression models are built-in for:
@@ -22,11 +22,11 @@ Compression models are built-in for:
 Installation
 ------------
 
-The **verz** comression algorithm is written in Javascript. Use it with node
+The **strofa** comression algorithm is written in Javascript. Use it with node
 Node.js:
 
 ```
-npm install verz
+npm install strofa
 ```
 
 For browsers a [minified version][1] is available. It requires Javascript
@@ -36,8 +36,8 @@ Internet Explorer 10+, Opera 11.6+ and Safari 5.1+.
 This distributable does not ship with any of the standard compression models.
 You can [download the models][2] in binary format if you need them.
 
-[1]: https://github.com/rolftimmermans/verz/blob/master/dist/verz.min.js
-[2]: https://github.com/rolftimmermans/verz/tree/master/lib/models/
+[1]: https://github.com/rolftimmermans/strofa/blob/master/dist/strofa.min.js
+[2]: https://github.com/rolftimmermans/strofa/tree/master/lib/models/
 
 
 Usage
@@ -47,11 +47,11 @@ Usage
 
 ``` javascript
 /* Compress as Buffer/Uint8Array. */
-verz.english.encode("All which is not prose is verse...");
+strofa.english.encode("All which is not prose is verse...");
 // <Buffer 41 ec 2f 68 5f fa af 6f a5 18 d3 7d 44 78 cf 98 c4>
 
 /* Compress as URL-safe base64. */
-verz.english.encodeBase64("and all which is not verse is prose.");
+strofa.english.encodeBase64("and all which is not verse is prose.");
 // 'YfgyF7Qv_Ve30jxm-ooxp8g'
 ```
 
@@ -61,11 +61,11 @@ The English compression model is created from a number of English books.
 
 ``` javascript
 /* Compress as Buffer/Uint8Array. */
-verz.email.encode("r.w.timmermans@gmail.com");
+strofa.email.encode("r.w.timmermans@gmail.com");
 //=> <Buffer 5e 3a f0 d9 e8 e5 da d5 40 c7 c0>
 
 /* Compress as URL-safe base64. */
-verz.email.encodeBase64("r.w.timmermans@gmail.com");
+strofa.email.encodeBase64("r.w.timmermans@gmail.com");
 //=> 'Xjrw2ejl2tVAx8'
 ```
 
@@ -102,7 +102,7 @@ the compression model.
 ### Customized compression models
 
 ``` javascript
-var model = new verz.Model;
+var model = new strofa.Model;
 
 /* Provide as much sample data as possible. */
 model.push("Hello world!");
@@ -126,22 +126,22 @@ coder.encodeBase64("Hello");
 API
 ---
 
-When used with Node.js, require the `verz` module first:
+When used with Node.js, require the `strofa` module first:
 
 ``` javascript
-var verz = require("verz");
+var strofa = require("strofa");
 ```
 
 ### Built-in compression
 
-#### `verz.email`
+#### `strofa.email`
 
 Loads and returns the built-in compressor for [email
 addresses](#email-addresses). Loading is synchronous, you should call this
 during your app's initialization. Returns the same compressor when accessed
 multiple times.
 
-#### `verz.english`
+#### `strofa.english`
 
 Loads and returns the built-in compressor for [English text](#english-text).
 Loading is synchronous, you should call this during your app's initialization.
@@ -149,7 +149,7 @@ Returns the same compressor when accessed multiple times.
 
 ### Model
 
-#### `new verz.Model`
+#### `new strofa.Model`
 
 Creates and returns a new compression model.
 
@@ -178,13 +178,13 @@ significantly larger than the binary format, so you should almost always use
 
 ### Coder
 
-#### `verz.Coder.fromBuffer(buffer)`
+#### `strofa.Coder.fromBuffer(buffer)`
 
 Creates and returns a new `Coder` base on the serialized model stored in the
 given `buffer`. This requires serialization format
 [compatibility](#compatibility).
 
-#### `verz.Coder.fromJSON(json)`
+#### `strofa.Coder.fromJSON(json)`
 
 Creates and returns a new `Coder` base on the serialized model stored as JSON.
 This requires serialization format [compatibility](#compatibility).
@@ -227,19 +227,19 @@ This requires compression format [compatibility](#compatibility).
 Compatibility
 -------------
 
-Releases of **verz** follow [semantic versioning][5]. Compression output and
+Releases of **strofa** follow [semantic versioning][5]. Compression output and
 compression model compatibility is treated as an API compatibility. That means:
 
 - **Before 1.0** the compression output, the model serialization format and the
   API **may not be compatible** between minor versions. You should be explicit
-  when adding a dependency in your `package.json` file, for example: `"verz":
+  when adding a dependency in your `package.json` file, for example: `"strofa":
   "0.2.x"`.
 - **Starting at 1.0** the compression output, the model serialization format
   and the API will be **compatible** between **minor** versions and **patch**
   versions.
 - **Starting at 1.0** breaking changes will be limited to **major** versions
   only. You should be explicit when adding a dependency in your `package.json`
-  file, for example: `"verz": "1.x"`.
+  file, for example: `"strofa": "1.x"`.
 
 [5]: http://semver.org/
 
@@ -249,8 +249,8 @@ License
 
 Copyright 2013-2014 Rolf W. Timmermans.
 
-The **verz** compression library and algorithm are licensed under the Apache
+The **strofa** compression library and algorithm are licensed under the Apache
 License, Version 2.0; you may not use this project except in compliance with the
 License. See the file [LICENSE][6] for details.
 
-[6]: https://github.com/rolftimmermans/verz/blob/master/LICENSE
+[6]: https://github.com/rolftimmermans/strofa/blob/master/LICENSE

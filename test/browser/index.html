@@ -8,24 +8,24 @@
   <div id="mocha"></div>
   <script src="../../node_modules/chai/chai.js"></script>
   <script src="../../node_modules/mocha/mocha.js"></script>
-  <script src="../../dist/mhc.min.js"></script>
+  <script src="../../dist/strofa.min.js"></script>
   <script>
     var assert = chai.assert
     mocha.setup("bdd")
 
     describe("Coder", function() {
       it("should compress based on new model", function() {
-        var model = new mhc.Model
+        var model = new strofa.Model
         model.push("abcabcbdadefffbac")
-        var coder = model.getCoder()
+        var coder = model.createCoder()
 
         assert.equal(coder.decodeBase64(coder.encodeBase64("abacbac")), "abacbac")
       })
 
       it("should compress based on new model via buffer", function() {
-        var model = new mhc.Model
+        var model = new strofa.Model
         model.push("abcabcbdadefffbac")
-        var coder = mhc.Coder.fromBuffer(model.toBuffer())
+        var coder = strofa.Coder.fromBuffer(model.toBuffer())
 
         assert.equal(coder.decodeBase64(coder.encodeBase64("abacbac")), "abacbac")
       })

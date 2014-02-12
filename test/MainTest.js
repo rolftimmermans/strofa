@@ -5,12 +5,12 @@
 
 var assert = require("chai").assert
 
-var verz = require("../verz")
+var strofa = require("../strofa")
 
-describe("verz", function() {
+describe("Strofa", function() {
   describe("model", function() {
     it("should create model", function() {
-      var model = new verz.Model
+      var model = new strofa.Model
       model.push("abc")
       assert.equal(model.toJSON().length, 257)
     })
@@ -18,13 +18,13 @@ describe("verz", function() {
 
   describe("coder", function() {
     it("should load from json", function() {
-      var coder = verz.Coder.fromJSON([[97, 98]])
+      var coder = strofa.Coder.fromJSON([[97, 98]])
       assert.equal(coder.encode("\x00ab").length, 3)
     })
   })
 
   describe("email", function() {
-    var email = verz.email
+    var email = strofa.email
 
     var inputs = [
       "riojasm66@yahoo.com",
@@ -65,7 +65,7 @@ describe("verz", function() {
   })
 
   describe("english", function() {
-    var english = verz.english
+    var english = strofa.english
 
     /* Examples from Smaz. */
     var inputs = [
@@ -108,7 +108,7 @@ describe("verz", function() {
   })
 
   describe("domain", function() {
-    var domain = verz.domain
+    var domain = strofa.domain
 
     var inputs = [
       "www.gmail.com",
