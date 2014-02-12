@@ -65,6 +65,10 @@ describe("MkvHuffCoder", function() {
     it("should decode random data", function() {
       assert.closeTo(coder.decode(crypto.randomBytes(21)).length, 22, 5)
     })
+
+    it("should decode empty string", function() {
+      assert.equal(coder.decode(""), "")
+    })
   })
 
   describe("encoding as base64", function() {
@@ -88,6 +92,10 @@ describe("MkvHuffCoder", function() {
         }
         assert.equal(coder.decodeBase64(coder.encodeBase64(random)), random)
       }
+    })
+
+    it("should decode empty string", function() {
+      assert.equal(coder.decodeBase64(""), "")
     })
   })
 })

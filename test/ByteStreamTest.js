@@ -78,6 +78,17 @@ describe("ByteStream", function() {
     })
   })
 
+  describe("eof", function() {
+    it("should be true if empty", function() {
+      assert.equal(str.eof, true)
+    })
+
+    it("should be false if nonempty", function() {
+      str = new ByteStream("foo")
+      assert.equal(str.eof, false)
+    })
+  })
+
   describe("toString", function() {
     it("should return empty string if empty", function() {
       assert.equal(str.toString(), "")
