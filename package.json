@@ -1,7 +1,7 @@
 {
   "author": "Rolf W. Timmermans <rolftimmermans@voormedia.com>",
   "name": "strofa",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Compression for short messages using Markov-Huffman encoding",
   "url": "https://github.com/rolftimmermans/strofa",
   "license": "Apache-2.0",
