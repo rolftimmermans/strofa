@@ -13,10 +13,10 @@ With **verz** it is trivial to construct compression models based on a set of
 sample data that you provide. A compression model can be serialized to a binary
 representation of roughly 10-30K, with an absolute upper limit of 82K.
 Compression models are built-in for:
-- English text
-- email addresses
-- host names
-- URLs
+- [English text](#english-text)
+- [email addresses](#email-addresses)
+- [host names](#host-names)
+- [URLs](#urls)
 
 
 Installation
@@ -37,7 +37,7 @@ This distributable does not ship with any of the standard compression models.
 You can [download the models][2] in binary format if you need them.
 
 [1]: https://github.com/rolftimmermans/verz/blob/master/dist/verz.min.js
-[2]: https://github.com/rolftimmermans/verz/blob/master/lib/models/
+[2]: https://github.com/rolftimmermans/verz/tree/master/lib/models/
 
 
 Usage
@@ -79,6 +79,7 @@ the compression model.
   12 bits.
 - Predictable patterns in the username part of an address occur. They can be
   compressed by about half.
+- Email addresses do not have to be valid.
 
 #### Caveats:
 - There may be a strong bias towards Western email addresses.
