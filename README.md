@@ -75,8 +75,8 @@ addresses are not included in this repository, nor are they recoverable from
 the compression model.
 
 #### Benefits:
-- Commonly used domains are compressed very efficiently: `gmail.com` uses just
-  12 bits.
+- Commonly used host names are compressed very efficiently: `gmail.com` uses
+  just 12 bits.
 - Predictable patterns in the username part of an address occur. They can be
   compressed by about half.
 - Email addresses do not have to be valid.
@@ -87,13 +87,39 @@ the compression model.
   and a single one takes about 3-4 bytes to encode (although any that follow
   will use exactly 1 byte).
 - No UTF-8 email addresses are included.
-- The username and the domain parts follow different patterns but the
+- The username and the host name parts follow different patterns but the
   compressor makes no distinction.
 
 [4]: http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/
 
 ### Host names
 
+``` javascript
+/* Compress as Buffer/Uint8Array. */
+strofa.hostname.encode("www.github.com");
+//=> <Buffer ed 4d f0 d6 2f c0>
+
+/* Compress as URL-safe base64. */
+strofa.hostname.encodeBase64("www.github.com")
+//=> '7U3w1i_'
+```
+
+The model for host names is based on the [Alexa][5] top 1 million websites and
+26 million unique domains taken randomly from the Common Crawl [URL index][6].
+
+#### Benefits:
+- Common top level domains and the `www.` prefix compress well.
+- The fact that host names only use a limited character set means any valid
+  host name can be compressed.
+
+#### Caveats:
+- Because of the sheer variety in host names and the relatively short length
+  of most domains the absolute compression effect may be limited.
+- English domain names and the `.com` top level domain may be somewhat
+  overrepresented.
+
+[5]: http://www.alexa.com
+[6]: http://commoncrawl.org/common-crawl-url-index/
 
 ### URLs
 
@@ -135,17 +161,14 @@ var strofa = require("strofa");
 ### Built-in compression
 
 #### `strofa.email`
-
-Loads and returns the built-in compressor for [email
-addresses](#email-addresses). Loading is synchronous, you should call this
-during your app's initialization. Returns the same compressor when accessed
-multiple times.
-
 #### `strofa.english`
+#### `strofa.hostnames`
 
-Loads and returns the built-in compressor for [English text](#english-text).
-Loading is synchronous, you should call this during your app's initialization.
-Returns the same compressor when accessed multiple times.
+Loads and returns the built-in compressor for for [email
+addresses](#email-addresses), [English text](#english-text) or [host
+names](#host-names). Loading is synchronous. You should only call this during
+your app's initialization. Returns the same compressor when accessed multiple
+times.
 
 ### Model
 
@@ -200,9 +223,9 @@ additional functions mimicking a `Buffer`. Use `decode()` to decompress.
 #### `coder.encodeBase64(string)`
 
 Same as `encode()`, but returns the compressed representation as an [URL-safe
-base64][3] encoded string. Use `decodeBase64()` to decompress.
+base64][7] encoded string. Use `decodeBase64()` to decompress.
 
-[3]: http://tools.ietf.org/html/rfc4648#section-5
+[7]: http://tools.ietf.org/html/rfc4648#section-5
 
 #### `coder.decode(buffer)`
 
@@ -227,7 +250,7 @@ This requires compression format [compatibility](#compatibility).
 Compatibility
 -------------
 
-Releases of **strofa** follow [semantic versioning][5]. Compression output and
+Releases of **strofa** follow [semantic versioning][8]. Compression output and
 compression model compatibility is treated as an API compatibility. That means:
 
 - **Before 1.0** the compression output, the model serialization format and the
@@ -241,7 +264,7 @@ compression model compatibility is treated as an API compatibility. That means:
   only. You should be explicit when adding a dependency in your `package.json`
   file, for example: `"strofa": "1.x"`.
 
-[5]: http://semver.org/
+[8]: http://semver.org/
 
 
 License
@@ -251,6 +274,6 @@ Copyright 2013-2014 Rolf W. Timmermans.
 
 The **strofa** compression library and algorithm are licensed under the Apache
 License, Version 2.0; you may not use this project except in compliance with the
-License. See the file [LICENSE][6] for details.
+License. See the file [LICENSE][9] for details.
 
-[6]: https://github.com/rolftimmermans/strofa/blob/master/LICENSE
+[9]: https://github.com/rolftimmermans/strofa/blob/master/LICENSE

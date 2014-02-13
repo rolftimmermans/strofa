@@ -63,10 +63,11 @@ Model.fromFiles(english, function(err, model) {
 })
 
 
-var domain = [
-  __dirname + "/domain/alexa-top-1m.txt",
+var hostname = [
+  __dirname + "/hostname/alexa-top-1m.txt",
+  __dirname + "/hostname/common-crawl.txt",
 ]
 
-Model.fromFilesByLine(domain, function(err, model) {
-  fs.writeFileSync(__dirname + "/../lib/models/domain.vzm", model.toBuffer())
+Model.fromFilesByLine(hostname, function(err, model) {
+  fs.writeFileSync(__dirname + "/../lib/models/hostname.vzm", model.toBuffer())
 })

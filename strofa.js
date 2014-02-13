@@ -31,14 +31,14 @@ lazyLoad(module.exports, "Model", function() {
   return require("./lib/MkvHuffModel")
 })
 
-lazyLoad(module.exports, "domain", function() {
-  return loadModelSync("domain")
-})
-
 lazyLoad(module.exports, "email", function() {
   return loadModelSync("email")
 })
 
 lazyLoad(module.exports, "english", function() {
   return loadModelSync("english")
+})
+
+lazyLoad(module.exports, "hostname", function() {
+  return loadModelSync("hostname")
 })

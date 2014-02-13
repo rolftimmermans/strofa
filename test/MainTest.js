@@ -23,6 +23,8 @@ describe("Strofa", function() {
     })
   })
 
+  var base64perc = 4 / 3
+
   describe("email", function() {
     var email = strofa.email
 
@@ -52,7 +54,7 @@ describe("Strofa", function() {
     describe("encodeBase64", function() {
       it("should be efficient", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.closeTo(email.encodeBase64(inputs[i]).length / inputs[i].length, 0.7, 0.15)
+          assert.closeTo(email.encodeBase64(inputs[i]).length / inputs[i].length, 0.5 * base64perc, 0.15)
         }
       })
 
@@ -95,7 +97,7 @@ describe("Strofa", function() {
     describe("encodeBase64", function() {
       it("should be efficient", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.closeTo(english.encodeBase64(inputs[i]).length / inputs[i].length, 0.7, 0.15)
+          assert.closeTo(english.encodeBase64(inputs[i]).length / inputs[i].length, 0.5 * base64perc, 0.15)
         }
       })
 
@@ -107,24 +109,25 @@ describe("Strofa", function() {
     })
   })
 
-  describe("domain", function() {
-    var domain = strofa.domain
+  describe("hostname", function() {
+    var hostname = strofa.hostname
 
     var inputs = [
       "www.gmail.com",
       "news.ycombinator.com",
+      "www.youtube.com",
     ]
 
     describe("encode", function() {
       it("should be efficient", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.closeTo(domain.encode(inputs[i]).length / inputs[i].length, 0.5, 0.15)
+          assert.closeTo(hostname.encode(inputs[i]).length / inputs[i].length, 0.4, 0.15)
         }
       })
 
       it("should be correct", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.equal(domain.decode(domain.encode(inputs[i])), inputs[i])
+          assert.equal(hostname.decode(hostname.encode(inputs[i])), inputs[i])
         }
       })
     })
@@ -132,13 +135,13 @@ describe("Strofa", function() {
     describe("encodeBase64", function() {
       it("should be efficient", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.closeTo(domain.encodeBase64(inputs[i]).length / inputs[i].length, 0.6, 0.15)
+          assert.closeTo(hostname.encodeBase64(inputs[i]).length / inputs[i].length, 0.4 * base64perc, 0.15)
         }
       })
 
       it("should be correct", function() {
         for (var i = 0; i < inputs.length; i++) {
-          assert.equal(domain.decodeBase64(domain.encodeBase64(inputs[i])), inputs[i])
+          assert.equal(hostname.decodeBase64(hostname.encodeBase64(inputs[i])), inputs[i])
         }
       })
     })
