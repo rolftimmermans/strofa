@@ -7,6 +7,7 @@ var assert = require("chai").assert
 
 var MkvHuffModel = require("../lib/MkvHuffModel")
 var MkvHuffCoder = require("../lib/MkvHuffCoder")
+var TreeSerializer = require("../lib/TreeSerializer")
 
 describe("MkvHuffModel", function() {
   var model
@@ -53,9 +54,13 @@ describe("MkvHuffModel", function() {
   })
 
   describe("toBuffer", function() {
+    it("should write serialization format version", function() {
+      assert.deepEqual(model.toBuffer().slice(0, 1), new Buffer([TreeSerializer.version]))
+    })
+
     it("should return huffman prefix code trees", function() {
       model.push("aaaaaabababcacacac")
-      var offset = 97 + 320
+      var offset = 1 + 97 + 320
       assert.deepEqual(model.toBuffer().slice(offset - 2, offset), new Buffer([98, 97]))
     })
   })

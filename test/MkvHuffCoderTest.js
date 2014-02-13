@@ -9,6 +9,7 @@ var crypto = require("crypto")
 var MkvHuffModel = require("../lib/MkvHuffModel")
 var MkvHuffCoder = require("../lib/MkvHuffCoder")
 var HuffTree = require("../lib/HuffTree")
+var TreeSerializer = require("../lib/TreeSerializer")
 
 describe("MkvHuffCoder", function() {
   var coder
@@ -18,6 +19,21 @@ describe("MkvHuffCoder", function() {
     model.push("abcdefg")
 
     coder = model.createCoder()
+  })
+
+  describe("fromBuffer", function() {
+    it("should succeed with current serialization format", function() {
+      var buffer = new Buffer([2])
+      coder = MkvHuffCoder.fromBuffer(buffer)
+      assert.equal(coder.encode("foo").slice(0, 3), "foo")
+    })
+
+    it("should succeed with outdated serialization format", function() {
+      var buffer = new Buffer([1])
+      assert.throws(function() {
+        coder = MkvHuffCoder.fromBuffer(buffer)
+      }, "Incompatible encoding model format")
+    })
   })
 
   describe("encoding", function() {
